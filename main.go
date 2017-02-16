@@ -35,7 +35,7 @@ func handleRequest(conn net.Conn, message string) {
 	defer log.Println("Closed connection.")
 
 	if len(message) > 0 {
-		conn.Write([]byte(message))
+		conn.Write([]byte(message + "\n"))
 		return
 	}
 
