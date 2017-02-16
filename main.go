@@ -9,6 +9,7 @@ import (
 
 func main() {
 	port := flag.Int("port", 7777, "Port to accept connections on.")
+	message := flag.String("message", "", "Message to send regardless of input.")
 	flag.Parse()
 
 	l, err := net.Listen("tcp", ":"+strconv.Itoa(*port))
@@ -24,14 +25,19 @@ func main() {
 			log.Panicln(err)
 		}
 
-		go handleRequest(conn)
+		go handleRequest(conn, *message)
 	}
 }
 
-func handleRequest(conn net.Conn) {
+func handleRequest(conn net.Conn, message string) {
 	log.Println("Accepted new connection.")
 	defer conn.Close()
 	defer log.Println("Closed connection.")
+
+	if len(message) > 0 {
+		conn.Write([]byte(message))
+		return
+	}
 
 	buf := make([]byte, 1024)
 	size, err := conn.Read(buf)

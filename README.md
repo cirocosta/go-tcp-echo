@@ -4,12 +4,10 @@
 
 ```
 Usage of ./go-tcp-echo:
+  -message string
+    	Message to send regardless of input.
   -port int
     	Port to accept connections on. (default 7777)
-
-./go-tcp-echo 
-2017/02/16 10:19:08 Listening to connections on port 7777
-
 
 # then, from another terminal
 
