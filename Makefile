@@ -1,4 +1,4 @@
-IMAGE	:= cirocosta/goechotcp
+IMAGE	:= cirocosta/go-tcp-echo
 SRCS	:= $(shell find . -name "*.go" -type f -maxdepth 1)
 
 all: build
