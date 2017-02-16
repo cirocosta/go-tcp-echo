@@ -8,10 +8,10 @@ import (
 )
 
 func main() {
-	port := flag.Int("port", 3333, "Port to accept connections on.")
+	port := flag.Int("port", 7777, "Port to accept connections on.")
 	flag.Parse()
 
-	l, err := net.Listen("tcp", ":" + strconv.Itoa(*port))
+	l, err := net.Listen("tcp", ":"+strconv.Itoa(*port))
 	if err != nil {
 		log.Panicln(err)
 	}
@@ -33,14 +33,12 @@ func handleRequest(conn net.Conn) {
 	defer conn.Close()
 	defer log.Println("Closed connection.")
 
-	for {
-		buf := make([]byte, 1024)
-		size, err := conn.Read(buf)
-		if err != nil {
-			return
-		}
-		data := buf[:size]
-		log.Println("Read new data from connection", data)
-		conn.Write(data)
+	buf := make([]byte, 1024)
+	size, err := conn.Read(buf)
+	if err != nil {
+		return
 	}
+	data := buf[:size]
+	log.Println("Read new data from connection", data)
+	conn.Write(data)
 }
